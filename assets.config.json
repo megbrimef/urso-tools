@@ -1,0 +1,112 @@
+{
+  "audio": {
+    "sourceFolder": "src/assets/sounds",
+    "output": "src/bin/sounds",
+    "silence": 1,
+    "format": "howler",
+    "types": {
+      "desktop": {
+        "output": "audiosprite"
+      },
+      "mobile": {
+        "output": "mobile/audiosprite",
+        "optimizations": {
+          "bitrate": 44,
+          "samplerate": 22050,
+          "channels": 1
+        }
+      }
+    }
+  },
+  "images": {
+    "output": "src/bin/images",
+    "sourceFolder": "src/assets/images",
+    "folders": [
+        "animations",
+        "abilities",
+        "background",
+        "bg",
+        "fonts",
+        "gun",
+        "images",
+        "interface",
+        "loading",
+        "lobby",
+        "scrollbar",
+        "soundButtons"
+    ],
+    "types": {
+      "high": {
+        "scaleFactor": 1,
+        "quality": 100,
+        "speed": 1
+      },
+      "hd": {
+        "scaleFactor": 0.75,
+        "quality": 75,
+        "speed": 1
+      },
+      "medium": {
+        "scaleFactor": 0.5,
+        "quality": 50,
+        "speed": 1
+      },
+      "low": {
+        "scaleFactor": 0.25,
+        "quality": 25,
+        "speed": 1
+      }
+    }
+  },
+  "images_atlas": {
+    "groupsPath": "src/app/templates/groups",
+    "entry": "build/js/index.js",
+    "sourceFolder": "src/bin/images",
+    "folders": [
+      "background"
+    ],
+    "output": "atlases",
+    "saveFolders": false,
+    "extensions": [
+      "jpg",
+      "png"
+    ],
+    "deleteSourceFile": false,
+    "scaleParams": {
+      "high": 1,
+      "hd": 0.75,
+      "medium": 0.5,
+      "low": 0.25
+    },
+    "packerParams": {
+      "padding": 1,
+      "width": 3000,
+      "height": 3000,
+      "fixedSize": false,
+      "allowRotation": false,
+      "detectIdentical": true,
+      "allowTrim": false,
+      "exporter": "JsonArray",
+      "removeFileExtension": false,
+      "prependFolderName": true,
+      "packer": "OptimalPacker"
+    }
+  },
+  "webpConverter": {
+    "sourceFolder": "src/bin/images"
+  },
+  "loadGroupsGenerator": {
+    "groupName": "atlasLoadGroup.js",
+    "sourceFolder": "src/bin/images",
+    "groupPath": "src/app/templates/groups",
+    "qualities": [
+      "high",
+      "hd",
+      "medium",
+      "low"
+    ],
+    "groupsFolders": [
+      "[quality]/atlases"
+    ]
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "name": "@urso/tools",
+  "version": "0.1.0",
+  "description": "Urso assets opt tools pack",
+  "author": "Alkott",
+  "license": "MIT",
+  "keywords": [],
+  "bin": {
+    "sounds-packer": "./src/sounds/sounds-packer.js",
+    "images-converter": "./dist/images-converter/images-converter.js",
+    "atlases-assembler": "./dist/atlases-assembler/atlases-assembler.js",
+    "webp-converter": "./dist/webp-converter/webp-converter.js",
+    "load-group-generator": "./dist/load-group-generator/load-group-generator.js",
+    "project-cleaner": "./dist/project-cleaner/project-cleaner.js"
+  },
+  "engines": {
+    "node": ">=12.0.0"
+  },
+  "scripts": {
+    "project-cleaner": "babel-node ./src/project-cleaner/project-cleaner.js",
+    "load-group-generator": "babel-node ./src/load-group-generator/load-group-generator.js",
+    "webp-converter": "babel-node ./src/webp-converter/webp-converter.js",
+    "images-converter": "babel-node ./src/images-converter/images-converter.js",
+    "atlases-assembler": "babel-node ./src/atlases-assembler/atlases-assembler.js",
+    "sounds-assembler": "babel-node ./src/sounds-assembler/sounds-assembler.js",
+    "build": "NODE_ENV=production babel src --out-dir dist --source-maps inline"
+  },
+  "dependencies": {
+    "args": "^5.0.1",
+    "audiosprite": "^0.7.2",
+    "chalk": "^4.1.1",
+    "commander": "^8.2.0",
+    "free-tex-packer-core": "^0.3.4",
+    "image-size": "^1.0.0",
+    "lodash": "^4.17.21",
+    "log-symbols": "^4.1.0",
+    "mime-types": "^2.1.33",
+    "progress-estimator": "^0.3.0",
+    "puppeteer": "^10.4.0",
+    "xml2js": "^0.4.23"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.16.0",
+    "@babel/core": "^7.16.0",
+    "@babel/node": "^7.16.0",
+    "@babel/preset-env": "^7.16.0",
+    "babel-eslint": "^10.1.0",
+    "eslint": "^7.32.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-babel": "^5.3.1",
+    "eslint-plugin-import": "^2.25.2"
+  }
+}
