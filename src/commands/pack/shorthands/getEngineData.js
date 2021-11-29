@@ -1,20 +1,12 @@
-export default function getGameAssetsData() {
-    function recursiveGet(key, object, defaultResult) {
-        if (object === undefined) { return defaultResult; }
+/* eslint-disable no-restricted-syntax */
+/* eslint-disable no-param-reassign */
+/* eslint-disable no-eval */
+import path from 'path';
+import puppeteer from 'puppeteer';
+import { runSafe } from '../../../shared/commands/runSafe';
+import { exists, readFile } from '../../../shared/io';
 
-        // eslint-disable-next-line no-param-reassign
-        key = (typeof key === 'string') ? key.split('.') : key;
-
-        // eslint-disable-next-line no-restricted-syntax
-        for (const k of key) {
-            if (typeof object[k] === 'undefined') { return defaultResult; }
-            // eslint-disable-next-line no-param-reassign
-            object = object[k];
-        }
-
-        return object;
-    }
-
+function getGameAssetsData() {
     function getLazyLoadConfig(ctx) {
         const cfg = ctx.getInstance('Modules.Assets.Config');
 
@@ -36,6 +28,18 @@ export default function getGameAssetsData() {
         return (obj
             && obj.assets instanceof Array
             && obj.objects instanceof Array) ? obj.assets : [];
+    }
+
+    function recursiveGet(key, object, defaultResult) {
+        if (object === undefined) { return defaultResult; }
+        key = (typeof key === 'string') ? key.split('.') : key;
+
+        for (const k of key) {
+            if (typeof object[k] === 'undefined') { return defaultResult; }
+            object = object[k];
+        }
+
+        return object;
     }
 
     function processNamespace(namespace, ctx) {
@@ -90,3 +94,38 @@ export default function getGameAssetsData() {
 
     return makeEngineData();
 }
+
+async function makePage(content) {
+    const browser = await puppeteer.launch();
+    const page = await browser.newPage();
+
+    await page.addScriptTag({ content });
+
+    return { browser, page };
+}
+
+function checkContent(content) {
+    eval(content);
+}
+
+async function getEngineData(entry) {
+    const fPath = path.resolve('.', entry);
+    const fileExists = await exists(fPath);
+
+    if (!fileExists) {
+        throw new Error(`File ${fPath} was not found!`);
+    }
+
+    const content = await readFile(fPath, 'utf-8');
+
+    runSafe(checkContent, 'Can not run builded game. Please check build!');
+
+    const { page, browser } = await makePage(content);
+
+    const data = await page.evaluate(getGameAssetsData);
+    await browser.close();
+
+    return data;
+}
+
+export default getEngineData;

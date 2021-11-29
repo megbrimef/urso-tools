@@ -1,8 +1,15 @@
+/* eslint-disable prefer-rest-params */
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable no-param-reassign */
 
+import {
+    extname,
+    dirname,
+    basename,
+    join,
+    resolve,
+} from 'path';
 import { lookup } from 'mime-types';
-import { extname, dirname, basename } from 'path';
 import { lstat } from './io';
 
 function getDirPath(path) {
@@ -52,6 +59,10 @@ function recursiveGet(key, object, defaultResult) {
     return object;
 }
 
+function getAbsolutePath() {
+    return join(resolve('.'), ...arguments);
+}
+
 export {
     capitalizeFirstLetter,
     getFileExtension,
@@ -61,4 +72,5 @@ export {
     isDir,
     isHiddenDir,
     isImage,
+    getAbsolutePath,
 };

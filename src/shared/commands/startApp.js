@@ -1,16 +1,12 @@
 import { argv } from 'process';
 import makeParamsAsync from './makeParamsAsync';
-import makeConfigByKeyAsync from './makeConfigByKeyAsync';
-import runSafeAsync from './runSafeAsync';
+import { getConfig, getConfigParam } from '../config';
+import { runSafeAsync } from './runSafe';
 
-async function getConfig(key) {
+async function startApp() {
     const { configPath } = await makeParamsAsync(argv);
-    return makeConfigByKeyAsync(key, configPath);
-}
-
-async function startApp(key) {
-    const config = await runSafeAsync(getConfig.bind(this, key));
-    return async (cblk) => runSafeAsync(cblk.bind(this, config));
+    await runSafeAsync(() => getConfig(configPath));
+    return async (cblk) => runSafeAsync(cblk.bind(this, getConfigParam));
 }
 
 export default startApp;

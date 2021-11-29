@@ -1,6 +1,6 @@
 import { readFile } from '../io';
 
-async function makeConfigByKeyAsync(key, configPath) {
+async function makeConfigByKeyAsync(configPath) {
     const file = await readFile(configPath, { encoding: 'utf-8' });
     const config = JSON.parse(file);
 
