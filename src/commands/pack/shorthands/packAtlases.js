@@ -106,7 +106,7 @@ function packByQuality(files, cfg) {
             .filter((file) => file.includes(`${sep}${quality}${sep}`));
 
         const folder = filteredByQuality.reduce((cum, cur) => {
-            const regex = new RegExp('/bin/([^/]*)');
+            const regex = new RegExp(/[\\/]*bin[\\/]*([^\\/]]*)/gm);
             const [, finded] = regex.exec(cur);
             return finded || '';
         }, '');
