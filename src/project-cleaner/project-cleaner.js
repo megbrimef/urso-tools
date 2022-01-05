@@ -16,4 +16,4 @@ async function run(getConfigParamClbk) {
     logSuccess('Cleaning project done');
 }
 
-startApp('images_atlas').then((runner) => runner(run));
+startApp().then((runner) => runner(run));

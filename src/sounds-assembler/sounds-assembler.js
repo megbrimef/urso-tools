@@ -7,6 +7,7 @@ import assembleAudioSprites from './commands/assembleAudioSprites';
 import removeOldSoundAtlases from './commands/removeOldSoundAtlases';
 
 async function run(config) {
+    config = config('audio');
     greet('URSO SOUNDS TO ATLAS TOOL');
     logInfo('Starting sound atlas assembling');
     await removeOldSoundAtlases(config);
@@ -15,4 +16,4 @@ async function run(config) {
     logSuccess('Sound atlas assembling done');
 }
 
-startApp('audio').then((runner) => runner(run));
+startApp().then((runner) => runner(run));
