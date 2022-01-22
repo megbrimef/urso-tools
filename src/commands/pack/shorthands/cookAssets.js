@@ -5,7 +5,8 @@ function cookAsset() {
 }
 
 async function cookAssets(preparedAssets = []) {
-    return Promise.all(preparedAssets.map(cookAsset()));
+    const assets = await Promise.all(preparedAssets.map(cookAsset()));
+    return assets.filter((asset) => asset);
 }
 
 export default cookAssets;
