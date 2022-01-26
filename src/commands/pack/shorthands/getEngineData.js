@@ -7,6 +7,8 @@ import { runSafe } from '../../../shared/commands/runSafe';
 import { exists, readFile } from '../../../shared/io';
 
 function getGameAssetsData() {
+    const errors = [];
+
     function getLazyLoadConfig(ctx) {
         const cfg = ctx.getInstance('Modules.Assets.Config');
 
@@ -22,8 +24,9 @@ function getGameAssetsData() {
 
         try {
             obj = ctx.getInstance(namespace, {});
-        // eslint-disable-next-line no-empty
-        } catch (e) {}
+        } catch (e) {
+            errors.push(e);
+        }
 
         return (obj
             && obj.assets instanceof Array
@@ -89,7 +92,11 @@ function getGameAssetsData() {
         const config = getLazyLoadConfig(Urso);
         const assets = getGameAssets(Urso);
 
-        return { assets, config };
+        return {
+            assets,
+            config,
+            errors,
+        };
     }
 
     return makeEngineData();

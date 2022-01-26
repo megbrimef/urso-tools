@@ -49,7 +49,7 @@
   },
   "groups": {
     "groupName": "atlasLoadGroup.js",
-    "groupPath": "src/app/templates/groups"
+    "groupsPath": "src/app/templates/groups"
   },
   "audio": {
     "sourceFolder": "src/assets/sounds",

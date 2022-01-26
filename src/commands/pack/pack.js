@@ -6,7 +6,12 @@ import prepareAssets from './shorthands/prepareAssets';
 import cookAssets from './shorthands/cookAssets';
 import packAtlases from './shorthands/packAtlases';
 import makeGroups from './shorthands/makeGroups';
-import { greet, logInfo, logSuccess } from '../../shared/logger';
+import {
+    greet,
+    logInfo,
+    logSuccess,
+    logWarning,
+} from '../../shared/logger';
 
 async function run(getConfigParamClbk) {
     const {
@@ -30,9 +35,14 @@ async function run(getConfigParamClbk) {
     greet('URSO PACKER TOOL');
     logInfo('Getting assets list');
 
-    const { assets, config } = await getEngineData(entrypoint);
+    const { assets, config, errors } = await getEngineData(entrypoint);
 
-    logSuccess(`Founded ${assets.length} assets`);
+    if (errors.length > 0) {
+        logWarning(`Founded ${assets.length} assets with ${errors.length} errors`);
+        logWarning(JSON.stringify(errors));
+    } else {
+        logSuccess(`Founded ${assets.length} assets`);
+    }
     const preparedAssets = prepareAssets(assets, { sourceFolder, types, outputFolder });
 
     logInfo('Starting assets optimization');
