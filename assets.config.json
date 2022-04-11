@@ -69,5 +69,9 @@
         }
       }
     }
+  },
+  "localization": {
+    "filename": "en.json",
+    "savePath": "src/assets/localizations"
   }
 }

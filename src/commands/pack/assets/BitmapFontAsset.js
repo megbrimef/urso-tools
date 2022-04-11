@@ -9,14 +9,19 @@ function BitmapFontAsset(asset, config) {
     BaseQualityAsset.call(this, asset, config);
 
     this.cookTextureByQuality = async (texturePath, qPath) => {
-        const { scaleFactor, speed, quality } = this.config.types[qPath];
+        const {
+            scaleFactor,
+            speed,
+            quality,
+            needOptimize,
+        } = this.config.types[qPath];
         const source = await this.makeSourcePath(texturePath);
         const output = await this.makeOutputPath(qPath, texturePath);
 
         await this.resize({ scaleFactor, output, source });
 
         const ext = getFileExtension(output);
-        if (ext === 'png') {
+        if (ext === 'png' && needOptimize) {
             await this.compress({ quality, speed, output });
         }
 

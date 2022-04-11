@@ -57,7 +57,7 @@ function BaseQualityAsset(asset, config) {
 
     this.compress = async (params) => {
         const { quality, speed, output } = params;
-        const command = `pngquant --ext .png --force --strip --quality 0-${quality} --speed ${speed} "${output}"`;
+        const command = `pngquant --ext .png --force --strip --quality ${quality * 0.75}-${quality} --speed ${speed} "${output}"`;
         await exec(command);
     };
 

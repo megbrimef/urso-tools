@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import startApp from '../../shared/commands/startApp';
-import getEngineData from './shorthands/getEngineData';
+import getEngineData from '../../shared/commands/getEngineData';
 import prepareAssets from './shorthands/prepareAssets';
 import cookAssets from './shorthands/cookAssets';
 import packAtlases from './shorthands/packAtlases';

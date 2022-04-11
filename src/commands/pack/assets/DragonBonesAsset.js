@@ -11,14 +11,18 @@ function DragonBonesAsset(asset, config) {
     this.textureImage = textureImage;
 
     this.cookTextureByQuality = async (qPath) => {
-        const { speed, quality } = this.config.types[qPath];
+        const {
+            speed,
+            quality,
+            needOptimize,
+        } = this.config.types[qPath];
         const source = await this.makeSourcePath(this.textureImage);
         const output = await this.makeOutputPath(qPath, this.textureImage);
 
         await this.copy({ source, output });
 
         const ext = getFileExtension(output);
-        if (ext === 'png') {
+        if (ext === 'png' && needOptimize) {
             await this.compress({ quality, speed, output });
         }
 

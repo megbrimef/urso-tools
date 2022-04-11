@@ -3,8 +3,8 @@
 /* eslint-disable no-eval */
 import path from 'path';
 import puppeteer from 'puppeteer';
-import { runSafe } from '../../../shared/commands/runSafe';
-import { exists, readFile } from '../../../shared/io';
+import { runSafe } from './runSafe';
+import { exists, readFile } from '../io';
 
 function getGameAssetsData() {
     const errors = [];
@@ -19,7 +19,7 @@ function getGameAssetsData() {
         return cfg.loadingGroups;
     }
 
-    function getAssets(namespace, ctx) {
+    function getObjectsByKey(namespace, ctx, pKey) {
         let obj = null;
 
         try {
@@ -28,9 +28,7 @@ function getGameAssetsData() {
             errors.push(e);
         }
 
-        return (obj
-            && obj.assets instanceof Array
-            && obj.objects instanceof Array) ? obj.assets : [];
+        return (obj && obj[pKey] instanceof Array) ? obj[pKey] : [];
     }
 
     function recursiveGet(key, object, defaultResult) {
@@ -45,42 +43,48 @@ function getGameAssetsData() {
         return object;
     }
 
-    function processNamespace(namespace, ctx) {
+    function processNamespace(namespace, ctx, pKey) {
         const obj = recursiveGet(namespace, ctx.Game, '');
         const type = typeof obj;
-        let assets = [];
+        let objects = [];
 
         if (type === 'object') {
             const keys = Object.keys(obj);
 
             keys.forEach((key) => {
-                assets = [
-                    ...assets,
-                    ...processNamespace(`${namespace}.${key}`, ctx),
+                objects = [
+                    ...objects,
+                    ...processNamespace(`${namespace}.${key}`, ctx, pKey),
                 ];
             });
         } else if (type === 'function') {
-            assets = [
-                ...assets,
-                ...getAssets(namespace, ctx),
+            objects = [
+                ...objects,
+                ...getObjectsByKey(namespace, ctx, pKey),
             ];
         }
 
-        return assets;
+        return objects;
     }
 
-    function getGameAssets(ctx) {
+    function getGameData(ctx) {
         const keys = ['Components', 'Templates'];
         let assets = [];
+        let objects = [];
 
         keys.forEach((key) => {
             assets = [
                 ...assets,
-                ...processNamespace(key, ctx),
+                ...processNamespace(key, ctx, 'assets'),
+            ];
+
+            objects = [
+                ...objects,
+                ...processNamespace(key, ctx, 'objects'),
             ];
         });
 
-        return assets;
+        return { assets, objects };
     }
 
     function makeEngineData() {
@@ -89,10 +93,13 @@ function getGameAssetsData() {
 
         Urso.runGame();
 
+        Urso.config.mode = 'optimize';
+
         const config = getLazyLoadConfig(Urso);
-        const assets = getGameAssets(Urso);
+        const { assets, objects } = getGameData(Urso);
 
         return {
+            objects,
             assets,
             config,
             errors,

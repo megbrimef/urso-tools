@@ -6,7 +6,11 @@ function SpineAsset(asset, config) {
     BaseQualityAsset.call(this, asset, config);
 
     this.cookTextureByQuality = async (name, path, qPath) => {
-        const { speed, quality } = this.config.types[qPath];
+        const {
+            speed,
+            quality,
+            needOptimize,
+        } = this.config.types[qPath];
         const fName = join(path, `${name}.png`);
         const source = await this.makeSourcePath(fName);
         const output = await this.makeOutputPath(qPath, fName);
@@ -14,7 +18,7 @@ function SpineAsset(asset, config) {
         await this.copy({ source, output });
 
         const ext = getFileExtension(output);
-        if (ext === 'png') {
+        if (ext === 'png' && needOptimize) {
             await this.compress({ quality, speed, output });
         }
 
