@@ -6,18 +6,28 @@ import { writeFile, exists, mkdir } from '../shared/io';
 import { getAbsolutePath } from '../shared/helper';
 import startApp from '../shared/commands/startApp';
 import getEngineData from '../shared/commands/getEngineData';
-
-const TEXT_TYPE = 4;
+import getCustomFunc from '../shared/commands/getCustomFunc';
 
 async function run(getConfigParamClbk) {
     greet('Parsing localizations');
-    const { filename, savePath } = getConfigParamClbk('localization');
+    const {
+        filename,
+        savePath,
+        typeKeys = [],
+        customCheckerPath,
+    } = getConfigParamClbk('localization');
     const pPath = getAbsolutePath(savePath);
     const fPath = getAbsolutePath(savePath, filename);
     const { entrypoint } = getConfigParamClbk('general');
     const { objects } = await getEngineData(entrypoint);
-    const texts = getObjectsByType(objects, TEXT_TYPE);
-    const localizedTexts = texts.filter(({ localeId }) => localeId);
+    const objectsToLocalize = getObjectsByType(objects, typeKeys);
+
+    const customObjectsToLocalize = await getCustomFunc(customCheckerPath, objectsToLocalize);
+    const localizedTexts = [
+        ...objectsToLocalize,
+        ...customObjectsToLocalize,
+    ].filter(({ localeId }) => localeId);
+
     // eslint-disable-next-line max-len
     const localizeConfig = localizedTexts.reduce((acc, { localeId, text }) => ({ ...acc, [localeId]: text }), {});
 

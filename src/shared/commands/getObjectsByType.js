@@ -17,8 +17,8 @@ function flatten(arr) {
     return [...result, obj];
 }
 
-function getObjectsByType(objects, type) {
-    return flatten(objects).filter(({ type: objType }) => type === objType);
+function getObjectsByTypes(objects, types = []) {
+    return flatten([...objects]).filter(({ type: objType }) => types.includes(objType));
 }
 
-export default getObjectsByType;
+export default getObjectsByTypes;

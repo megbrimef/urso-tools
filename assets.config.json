@@ -71,7 +71,9 @@
     }
   },
   "localization": {
+    "typeKeys": [4],
     "filename": "en.json",
-    "savePath": "src/assets/localizations"
+    "savePath": "src/assets/localizations",
+    "customCheckerPath": ""
   }
 }
