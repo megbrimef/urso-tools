@@ -1,15 +1,15 @@
 {
   "name": "@urso/tools",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "description": "Urso assets opt tools pack",
   "author": "Alkott",
   "license": "MIT",
   "keywords": [],
   "bin": {
-    "urso-pack-sounds": "./dist/sounds-assembler/sounds-assembler.js",
-    "urso-clean": "./dist/project-cleaner/project-cleaner.js",
-    "urso-pack-images": "./dist/commands/pack/pack.js",
-    "urso-get-localization-keys": "./dist/get-localization-keys/get-localization-keys.js"
+    "urso-pack-sounds": "dist/sounds-assembler/sounds-assembler.js",
+    "urso-clean": "dist/project-cleaner/project-cleaner.js",
+    "urso-pack-images": "dist/commands/pack/pack.js",
+    "urso-get-localization-keys": "dist/get-localization-keys/get-localization-keys.js"
   },
   "engines": {
     "node": ">=12.0.0"
