@@ -4,15 +4,15 @@ import { copyFile, exists, mkdir } from '../../../shared/io';
 
 const AssetsEnum = {
     NONE: 0,
-    ATLAS: 3,
-    AUDIOSPRITE: 9,
-    BITMAPFONT: 6,
-    CONTAINER: 2,
-    FONT: 8,
-    IMAGE: 1,
-    JSON: 4,
-    SOUND: 7,
-    SPINE: 5,
+    ATLAS: 1,
+    AUDIOSPRITE: 2,
+    BITMAPFONT: 3,
+    CONTAINER: 4,
+    FONT: 5,
+    IMAGE: 6,
+    JSON: 7,
+    SOUND: 8,
+    SPINE: 9
 };
 
 function BaseAsset(asset, config) {
