@@ -53,9 +53,10 @@ In order to create Image atlases we must
 - Configure settings in assets.config.json file
 
 The main parameters of Image atlases:
-1 "groupName": "atlasLoadGroup.js" (default name), group name of the file that will contain the Image atlases
 
-2 "groupsPath": "src/app/templates/groups" (default path), path where all files are saved after execution.
+1) "groupName": "atlasLoadGroup.js" (default name), group name of the file that will contain the Image atlases
+
+2) "groupsPath": "src/app/templates/groups" (default path), path where all files are saved after execution.
 
 In the terminal, run the Image atlases creation script with the "npm run make:image" or "yarn make:image" command.
 
