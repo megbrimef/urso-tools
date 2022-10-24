@@ -7,7 +7,7 @@ URSO tools
 ### About ###
 
 Additional tool for developers.
-Urso tools implemented the ability to compile audiosprite and Image atlases,
+Urso tools implemented the ability to compile Audiosprite and Image atlases,
 
 ### How to ###
 
