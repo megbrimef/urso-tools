@@ -19,7 +19,7 @@ Code example:
    },
 ```
 
-**audiosprite**
+### Audiosprite ###
 
 If we want to start the sound assembly, then we need
 
@@ -44,7 +44,7 @@ For example
 
 now our audiosprite is connected and ready to go.
 
-**image atlases**
+### Image atlases ###
 
 Image atlases - a set of images in one file.
 
