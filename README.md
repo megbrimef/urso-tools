@@ -15,9 +15,10 @@ First of all, you need to add a dependency in the game package.json file
 Code example:
 ```js
   "dependencies": {
-     "@urso/tools": "^0.1.0"
+     "@urso/tools": "latest"
    },
 ```
+We recommend using the latest version
 
 ### Audiosprite ###
 
