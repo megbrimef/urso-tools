@@ -11,9 +11,10 @@ const writeFile = promisify(fs.writeFile);
 const copyFile = promisify(fs.copyFile);
 const lstat = promisify(fs.lstat);
 const access = promisify(fs.access);
+const rmRecursive = promisify(fs.rm);
 
 const rm = async (path) => {
-    await rm(path, { recursive: true });
+    await rmRecursive(path, { recursive: true });
 };
 
 const getImageSize = promisify(sizeOf);
