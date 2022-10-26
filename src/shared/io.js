@@ -10,11 +10,10 @@ const mkdir = promisify(fs.mkdir);
 const writeFile = promisify(fs.writeFile);
 const copyFile = promisify(fs.copyFile);
 const lstat = promisify(fs.lstat);
-const rmdir = promisify(fs.rmdir);
 const access = promisify(fs.access);
 
 const rm = async (path) => {
-    await rmdir(path, { recursive: true });
+    await rm(path, { recursive: true });
 };
 
 const getImageSize = promisify(sizeOf);
