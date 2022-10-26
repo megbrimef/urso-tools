@@ -26,9 +26,16 @@ function mapAssetsByLoadingGroups(imageAssets) {
 
 async function getFileContents(files = [], { outputFolder, quality }) {
     return Promise.all(files.map(async (aPath) => {
-        const relativePath = aPath.split(outputFolder).pop();
-        const pathParts = relativePath.split(sep).filter((part) => part && part !== quality);
-        const path = pathParts.join(sep);
+        const relativePath = aPath
+            .replace(/\\/gm, '/')
+            .split(outputFolder)
+            .pop();
+
+        const pathParts = relativePath
+            .split(sep)
+            .filter((part) => part && part !== quality);
+        
+        let path = pathParts.join(sep);
         const contents = await readFile(aPath);
         return { path, contents };
     }));
@@ -201,7 +208,7 @@ async function packAtlases(cookedAssets = [], cfg) {
     const mappedLoadingGroups = mapAssetsByLoadingGroups(imageAssets);
     const mappedAtlases = await Promise.all(Object.keys(mappedLoadingGroups)
         .map(packLoadingGroupToAltases(mappedLoadingGroups, cfg)));
-
+    
     return saveAtlasData(mappedAtlases, { atlasesOutputFolder, outputFolder });
 }
 

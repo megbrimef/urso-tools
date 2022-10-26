@@ -114,7 +114,6 @@ async function makePage(content) {
     await page.evaluate(() => {
         window.automation = true;
     });
-    
 
     await page.addScriptTag({ content });
 
