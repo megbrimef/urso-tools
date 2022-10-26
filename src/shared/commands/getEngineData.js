@@ -93,8 +93,6 @@ function getGameAssetsData() {
 
         Urso.runGame();
 
-        Urso.config.mode = 'optimize';
-
         const config = getLazyLoadConfig(Urso);
         const { assets, objects } = getGameData(Urso);
 
@@ -112,6 +110,11 @@ function getGameAssetsData() {
 async function makePage(content) {
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
+
+    await page.evaluate(() => {
+        window.automation = true;
+    });
+    
 
     await page.addScriptTag({ content });
 
