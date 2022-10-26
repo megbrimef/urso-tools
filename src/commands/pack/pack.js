@@ -66,13 +66,24 @@ async function run(getConfigParamClbk) {
     logSuccess('Atlases packing done');
 
     if(removeSingleImages) {
-        Promise.all(cookedAssets
-            .filter(asset => asset.type === 6)
-            .map(async ({ path }) => {
-                if(await exists(path)){
-                    await rm(resolve('.', outputFolder, path));
-                }
-            }));
+        const qualies = Object.keys(types);
+        Promise.all(
+            cookedAssets
+                .filter(asset => asset.type === 6)
+                .reduce((acc, { path }) => {
+                    const paths = qualies.map(qual => {
+                        const parts = path.split('/');
+                        parts.splice(1, 0, qual);
+                        return resolve('.',outputFolder, parts.join('/'));
+                    });
+                    return [...acc, ...paths];
+                }, [])
+                .map(async (path) => {
+                    if(await exists(path)){
+                        await rm(path);
+                    }
+                })
+            );
     }
 
     logInfo('Generating groups');
