@@ -27,8 +27,8 @@ function mapAssetsByLoadingGroups(imageAssets) {
 async function getFileContents(files = [], { outputFolder, quality }) {
     return Promise.all(files.map(async (aPath) => {
         const relativePath = aPath.split(outputFolder).pop();
-        const pathParts = relativePath.split('/').filter((part) => part && part !== quality);
-        const path = pathParts.join('/');
+        const pathParts = relativePath.split(sep).filter((part) => part && part !== quality);
+        const path = pathParts.join(sep);
         const contents = await readFile(aPath);
         return { path, contents };
     }));
