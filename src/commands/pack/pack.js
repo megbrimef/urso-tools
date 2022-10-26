@@ -6,6 +6,10 @@ import prepareAssets from './shorthands/prepareAssets';
 import cookAssets from './shorthands/cookAssets';
 import packAtlases from './shorthands/packAtlases';
 import makeGroups from './shorthands/makeGroups';
+
+import { rm, exists } from '../../shared/io';
+import { resolve } from 'path';
+
 import {
     greet,
     logInfo,
@@ -25,6 +29,7 @@ async function run(getConfigParamClbk) {
         atlasesOutputFolder,
         extensions,
         packerParams,
+        removeSingleImages
     } = getConfigParamClbk('atlases');
 
     const {
@@ -59,6 +64,16 @@ async function run(getConfigParamClbk) {
     });
 
     logSuccess('Atlases packing done');
+
+    if(removeSingleImages) {
+        Promise.all(cookedAssets
+            .filter(asset => asset.type === 6)
+            .map(async ({ path }) => {
+                if(await exists(path)){
+                    await rm(resolve('.', outputFolder, path));
+                }
+            }));
+    }
 
     logInfo('Generating groups');
     await makeGroups(atlases, config, {
