@@ -1,6 +1,6 @@
 {
   "name": "@urso/tools",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "description": "Urso assets opt tools pack",
   "author": "Alkott",
   "license": "MIT",
@@ -32,7 +32,7 @@
     "log-symbols": "^4.1.0",
     "mime-types": "^2.1.33",
     "progress-estimator": "^0.3.0",
-    "puppeteer": "^10.4.0",
+    "puppeteer": "^19.2.0",
     "xml2js": "^0.4.23"
   },
   "devDependencies": {

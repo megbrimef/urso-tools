@@ -4,13 +4,18 @@ import BaseQualityAsset from './BaseQualityAsset';
 
 function SpineAsset(asset, config) {
     BaseQualityAsset.call(this, asset, config);
+    this.noAtlas = asset.noAtlas;
 
     this.cookTextureByQuality = async (name, path, qPath) => {
+        if(this.noAtlas) {
+            return;
+        }
         const {
             speed,
             quality,
             needOptimize,
         } = this.config.types[qPath];
+
         const fName = join(path, `${name}.png`);
         const source = await this.makeSourcePath(fName);
         const output = await this.makeOutputPath(qPath, fName);
@@ -34,6 +39,10 @@ function SpineAsset(asset, config) {
     };
 
     this.cookAtlasByQuality = async (name, path, qPath) => {
+        if(this.noAtlas) {
+            return;
+        }
+
         const fName = join(path, `${name}.atlas`);
         const source = await this.makeSourcePath(fName);
         const output = await this.makeOutputPath(qPath, fName);

@@ -51,7 +51,7 @@ function BaseQualityAsset(asset, config) {
 
     this.resize = async (params) => {
         const { scaleFactor, output, source } = params;
-        const command = `magick convert ${source} -resize ${scaleFactor * 100}% ${output}`;
+        const command = `magick convert "${source}" -resize ${scaleFactor * 100}% "${output}"`;
         await exec(command);
     };
 
@@ -73,7 +73,7 @@ function BaseQualityAsset(asset, config) {
     };
 
     this.convertToWebp = async (from, to) => {
-        const cmd = `cwebp -q 100 ${from} -o ${to}`;
+        const cmd = `cwebp -q 100 "${from}" -o "${to}"`;
         await exec(cmd);
     };
 }

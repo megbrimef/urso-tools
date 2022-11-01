@@ -28,7 +28,7 @@
   },
   "atlases": {
     "atlasesOutputFolder": "atlases",
-    "removeSingleImages": false,
+    "removeSingleImages": true,
     "extensions": [
       "jpg",
       "png"
